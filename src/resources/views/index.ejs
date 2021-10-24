@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head'); %>
+
+  <body>
+    <div id="app">
+      <div id="app-logo">
+        <img src="/img/logo.png" alt="DSC-DUT Logo" />
+      </div>
+      <div class="app-button-right">
+        <div id="my-signin2" data-onsuccess="onSignIn"></div>
+        <a id="app-button-myurls" class="app-button" type="button" href="./myurls">My URLs</a>
+        <img id="app-avatar" class="app-avatar" />
+      </div>
+      <div id="app-container">
+        <h1>Shorter URL, less pain for your eyes</h1>
+        <form id="app-form">
+          <input type="text" class="app-input" id="app-input-url" placeholder="Input your url" />
+          <input type="text" class="app-input slug" id="app-input-slug" placeholder="Input your custom slug" />
+          <div class="text-right">
+            <button id="app-button-cancel" class="app-button cancel" type="button">
+              Clear
+            </button>
+            <button id="app-button-submit" class="app-button submit" type="submit">
+              Shorten URL
+            </button>
+          </div>
+        </form>
+      </div>
+      <%- include('./partials/loader'); %>
+    </div>
+
+    <%- include('./partials/gtag'); %>
+      <%- include('./partials/script'); %>
+  </body>
+
+</html>
