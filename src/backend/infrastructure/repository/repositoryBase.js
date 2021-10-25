@@ -30,6 +30,10 @@ class RepositoryBase {
         return this.model.doc(id).delete();
     }
 
+    async createEmployee(newId, employeeInfor) {
+        await this.model.doc(newId).set(employeeInfor);
+    }
+
     /**
      * Use db.batch() to create a transaction
      */

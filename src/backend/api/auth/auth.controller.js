@@ -11,6 +11,7 @@ class Controller {
 
     signIn = async (req, res) => {
         try {
+            console.log(req.body);
             const data = await this.service.signIn(SignInDto(req.body).tokenId);
             return ValidHttpResponse.toCreatedResponse(data).toResponse(res);
         } catch (error) {
