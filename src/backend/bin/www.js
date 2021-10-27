@@ -4,6 +4,7 @@ const debug = require('debug');
 const methodOverride = require('method-override');
 const cors = require('cors');
 const express = require('express');
+const fileUpload = require('express-fileupload');
 
 const debugHelper = debug('firebase:server');
 const env = require('../env');
@@ -83,6 +84,10 @@ app.use(cors({
     origin: env.CORS_ALLOW,
     optionsSuccessStatus: 200
 }));
+app.use(fileUpload({
+    createParentPath: true
+}));
+
 app.use(express.static('src/resources/public'));
 
 app.use(express.json());

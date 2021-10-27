@@ -3,19 +3,19 @@ module.exports = class UserModel {
 
     fullName;
 
-    avatar;
+    role;
 
-    constructor(email, fullName, avatar) {
+    constructor({ email, fullName, role }) {
         this.email = email;
         this.fullName = fullName;
-        this.avatar = avatar;
+        this.role = role;
     }
 
     toJSon() {
         return {
             email: this.email,
             fullName: this.fullName,
-            avatar: this.avatar,
+            role: this.role,
         };
     }
 };

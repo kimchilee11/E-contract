@@ -1,7 +1,6 @@
 const { HttpException } = require('../../common/httpException/HttpException');
 const { InValidHttpResponse } = require('../../common/response/invalidHttp.response');
 const { ValidHttpResponse } = require('../../common/response/validHttp.response');
-const { SignInDto } = require('../../modules/auth/dto/sign-in.dto');
 const { AuthService } = require('../../modules/auth/service/auth.service');
 
 class Controller {
@@ -11,8 +10,7 @@ class Controller {
 
     signIn = async (req, res) => {
         try {
-            console.log(req.body);
-            const data = await this.service.signIn(SignInDto(req.body).tokenId);
+            const data = await this.service.signIn(req.body);
             return ValidHttpResponse.toCreatedResponse(data).toResponse(res);
         } catch (error) {
             if (error instanceof HttpException) {

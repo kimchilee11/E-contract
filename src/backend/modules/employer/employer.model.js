@@ -1,6 +1,10 @@
 module.exports = class UserModel {
     name;
 
+    representative;
+
+    nationality;
+
     phoneNumber;
 
     address;

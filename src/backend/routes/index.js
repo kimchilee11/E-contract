@@ -8,5 +8,6 @@ const renderView = view => (req, res) => res.render(view);
 router.use('/a/api', ApiRouter);
 
 router.get('/', renderView('signin'));
+router.get('/upload', renderView('upload'));
 
 module.exports = router;

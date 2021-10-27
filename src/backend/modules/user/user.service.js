@@ -8,7 +8,7 @@ class UserServiceImp {
     }
 
     async createOne(userDto) {
-        const newUser = new User(userDto.email, userDto.fullName, userDto.avatar);
+        const newUser = new User(userDto);
         return this.repository.createOne(newUser.toJSon());
     }
 

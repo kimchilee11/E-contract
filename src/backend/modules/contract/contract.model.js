@@ -1,43 +1,37 @@
-module.exports = class UserModel {
-    name;
+module.exports = class ContractModel {
+    userA;
 
-    phoneNumber;
+    userB;
 
-    address;
+    ipfs;
 
-    email;
+    status;
 
-    idCard;
+    data;
 
-    bankAccount;
+    userAsignature;
 
-    issuedOn;
+    userBsignature;
 
-    idNo;
-
-    constructor({
-        name, phoneNumber, address, email, idCard, bankAccount, issuedOn, idNo
-    }) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.email = email;
-        this.idCard = idCard;
-        this.bankAccount = bankAccount;
-        this.issuedOn = issuedOn;
-        this.idNo = idNo;
+    constructor({ data, userA, userB }) {
+        this.data = data;
+        this.userA = userA;
+        this.userB = userB;
+        this.status = 'pending';
+        this.ipfs = '';
+        this.userASignature = '';
+        this.userBsignature = '';
     }
 
     toJSon() {
         return {
-            name: this.name,
-            phoneNumber: this.phoneNumber,
-            address: this.address,
-            email: this.email,
-            idCard: this.idCard,
-            bankAccount: this.bankAccount,
-            issuedOn: this.issuedOn,
-            idNo: this.idNo,
+            data: this.data,
+            userA: this.userA,
+            userB: this.userB,
+            status: this.status,
+            ipfs: this.ipfs,
+            userASignature: this.userASignature,
+            userBSignature: this.userBSignature,
         };
     }
 };

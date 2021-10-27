@@ -7,7 +7,8 @@ class EmployeeServiceImp {
         this.repository = EmployeeRepository;
     }
 
-    async createOne(employee, id = 'IZGjZoOptVfJUpDuJBcd') {
+    async createOne(employee) {
+        const id = employee.id || 'IZGjZoOptVfJUpDuJBcd';
         const newUser = new Employee(employee);
         return this.repository.createEmployee(id, newUser.toJSon());
     }

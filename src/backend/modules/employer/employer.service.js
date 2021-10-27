@@ -1,15 +1,19 @@
 const { EmployerRepository } = require('./employer.repository');
 const Employer = require('./employer.model');
 const { NotFoundException } = require('../../common/httpException');
+const { UserRepository } = require('../user/user.repository');
 
 class EmployerServiceImp {
     constructor() {
         this.repository = EmployerRepository;
+        this.userRepository = UserRepository;
     }
 
-    async createOne(employer, id = 'IZGjZoOptVfJUpDuJBcd') {
+    async createOne(employer) {
+        const id = employer.id || 'IZGjZoOptVfJUpDuJBcd';
         const newUser = new Employer(employer);
-        return this.repository.createEmployer(id, newUser.toJSon());
+        await this.userRepository.updateById(id, { role: 2 });
+        return this.repository.createEmployee(id, newUser.toJSon());
     }
 
     async getOne({ id }) {
