@@ -80,10 +80,7 @@ function onError(error) {
 app.set('view engine', 'ejs');
 app.set('views', 'src/resources/views');
 
-app.use(cors({
-    origin: env.CORS_ALLOW,
-    optionsSuccessStatus: 200
-}));
+app.use(cors());
 app.use(fileUpload({
     createParentPath: true
 }));
