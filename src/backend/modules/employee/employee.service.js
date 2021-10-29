@@ -1,5 +1,5 @@
 const { EmployeeRepository } = require('./employee.repository');
-const Employee = require('./employee.model');
+// const Employee = require('./employee.model');
 const { NotFoundException } = require('../../common/httpException');
 
 class EmployeeServiceImp {
@@ -9,8 +9,7 @@ class EmployeeServiceImp {
 
     async createOne(employee) {
         const id = employee.id || 'IZGjZoOptVfJUpDuJBcd';
-        const newUser = new Employee(employee);
-        return this.repository.createEmployee(id, newUser.toJSon());
+        return this.repository.createEmployee(id, employee);
     }
 
     async getOne({ id }) {
