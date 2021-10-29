@@ -80,10 +80,13 @@ function onError(error) {
 app.set('view engine', 'ejs');
 app.set('views', 'src/resources/views');
 
-app.use(cors());
-app.use(fileUpload({
-    createParentPath: true
+app.use(cors({
+    origin: env.CORS_ALLOW,
+    optionsSuccessStatus: 200
 }));
+// app.use(fileUpload({
+//     createParentPath: true
+// }));
 
 app.use(express.static('src/resources/public'));
 
