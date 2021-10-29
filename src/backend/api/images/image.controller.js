@@ -1,4 +1,3 @@
-const fs = require('fs');
 const { HttpException } = require('../../common/httpException/HttpException');
 const { InValidHttpResponse } = require('../../common/response/invalidHttp.response');
 const { ValidHttpResponse } = require('../../common/response/validHttp.response');
@@ -12,8 +11,6 @@ class Controller {
     createOneSignatureA = async (req, res) => {
         try {
             const data = await this.service.createOnesignatureA(req.file.path, req.body.idContract);
-            // fs.writeFile(fileName, async err => {
-            // });
             return ValidHttpResponse.toCreatedResponse(data).toResponse(res);
         } catch (error) {
             if (error instanceof HttpException) {

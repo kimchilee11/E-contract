@@ -11,7 +11,7 @@ class ImageServiceImp {
     createOnesignatureA = async (path, idContract) => {
         try {
             const { original_filename, url, format } = await cloudinary.uploader.upload(path);
-            fs.unlink(`./upload/${original_filename}.${format}`, err => console.log(err));
+            // fs.unlink(`./upload/${original_filename}.${format}`, err => console.log(err));
             await this.contractRepository.updateById(idContract, { signatureA: url });
             return url;
         } catch (error) {
