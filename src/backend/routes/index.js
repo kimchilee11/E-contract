@@ -5,7 +5,7 @@ const { ApiRouter } = require('../api/api.route');
 
 const renderView = view => (req, res) => res.render(view);
 
-router.use('/a/api', ApiRouter);
+router.use('/api/v1', ApiRouter);
 
 router.get('/', renderView('signin'));
 router.get('/upload', renderView('upload'));

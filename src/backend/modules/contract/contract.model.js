@@ -1,37 +1,72 @@
 module.exports = class ContractModel {
-    userA;
+    contractName;
 
-    userB;
+    contractCode;
 
-    ipfs;
+    contractDescription;
 
-    status;
+    contractType;
 
-    data;
+    contractStatus;
 
-    userAsignature;
+    contractStartDate;
 
-    userBsignature;
+    contractEndDate;
 
-    constructor({ data, userA, userB }) {
-        this.data = data;
-        this.userA = userA;
-        this.userB = userB;
-        this.status = 'pending';
-        this.ipfs = '';
-        this.userASignature = '';
-        this.userBsignature = '';
+    employeeId;
+
+    employeeSignedAt;
+
+    employeeSignature;
+
+    companyId;
+
+    companySignedAt;
+
+    companySignature;
+
+    createAt;
+
+    contractFields;
+
+    constructor(companyId, {
+        contractName, contractDescription, contractType, contractStartDate, contractEndDate, employeeId, contractFields,
+        employeeSignature = '', companySignature = ''
+    }) {
+        this.contractName = contractName;
+        this.contractDescription = contractDescription;
+        this.contractType = contractType;
+        this.contractStartDate = contractStartDate;
+        this.contractEndDate = contractEndDate;
+        this.employeeId = employeeId;
+        this.companyId = companyId;
+        this.contractFields = contractFields;
+        // this.employeeSignedAt = employeeSignedAt;
+        // this.companySignedAt = '';
+        this.employeeSignature = employeeSignature;
+        this.companySignature = companySignature;
+        this.contractStatus = 'PENDING';
+        this.createAt = new Date();
+        // this.contractCode = `HDLD-${}`;
     }
 
     toJSon() {
         return {
-            data: this.data,
-            userA: this.userA,
-            userB: this.userB,
-            status: this.status,
-            ipfs: this.ipfs,
-            userASignature: this.userASignature,
-            userBSignature: this.userBSignature,
+            contractName: this.contractName,
+            contractCode: this.contractCode,
+            contractDescription: this.contractDescription,
+            contractType: this.contractType,
+            contractStatus: this.contractStatus,
+            contractStartDate: this.contractStartDate,
+            contractEndDate: this.contractEndDate,
+            employeeId: this.employeeId,
+            employeeSignedAt: this.employeeSignedAt,
+            employeeSignature: this.employeeSignature,
+            companyId: this.companyId,
+            companySignedAt: this.companySignedAt,
+            companySignature: this.companySignature,
+            contractFields: this.contractFields,
+            createAt: this.createAt,
         };
     }
 };

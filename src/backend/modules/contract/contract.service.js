@@ -2,6 +2,7 @@ const { create } = require('ipfs-http-client');
 const fs = require('fs');
 const { ContractRepository } = require('./contract.repository');
 const ContractModel = require('./contract.model');
+const { JwtService } = require('../auth/service/jwt.service');
 const { NotFoundException } = require('../../common/httpException');
 
 const ipfs = create({
@@ -13,18 +14,34 @@ const ipfs = create({
 class ContractServiceImp {
     constructor() {
         this.repository = ContractRepository;
+        this.jwtRepository = JwtService;
     }
 
-    async createOne(body) {
-        return this.repository.createOne(new ContractModel(body).toJSon());
+    async createOne(body, { accessToken }) {
+        // const idCompany = '04SyvgIh8qFvkvaO1Nsj';
+        const idCompany = this.jwtRepository.decode(accessToken);
+        return this.repository.createOne(new ContractModel(idCompany, body).toJSon());
     }
 
     async updateOne({ id }, payload) {
         const foundUser = await this.repository.updateById(id, payload);
+        const contractUpdated = await this.repository.findById(id);
+        await this.checkSignature(contractUpdated, id);
         if (!foundUser) {
             throw new NotFoundException('Contract not found');
         }
-        return foundUser;
+        return contractUpdated;
+    }
+
+    async checkSignature(contractInfor, id) {
+        const { companySignature, employeeSignature } = contractInfor;
+        if (companySignature !== '' || employeeSignature !== '') {
+            await this.repository.updateById(id, { contractStatus: 'ACCEPTED' });
+        }
+        if (companySignature !== '' && employeeSignature !== '') {
+            const hashed = await this.upload(contractInfor);
+            console.log(hashed);
+        }
     }
 
     async uploadFile(fileName, filePath) {
@@ -34,44 +51,23 @@ class ContractServiceImp {
         return fileHash;
     }
 
-    async upload(idContract) {
+    async upload(content) {
         try {
-            const content = await this.repository.findById(idContract);
-            console.log(content);
-            const fileName = 'dungbugnua.txt';
-            fs.writeFile(fileName, content, async err => {
-                if (err) throw err;
-                const filePath = `./${fileName}`;
-                const file = fs.readFileSync(filePath);
-                const fileAdded = await ipfs.add({ path: fileName, content: file });
-                // console.log(fileAdded);
-                const fileHash = fileAdded.cid;
-                // console.log(fileHash);
-                fs.unlink(filePath);
-
-                // const res = {
-                //     status: true,
-                //     message: 'File is uploaded',
-                //     data: {
-                //         name: fileName,
-                //         fileAddress: 
-                //     }
-                // };
-                return fileHash.toString();
-            });
+            const cont = JSON.stringify(content);
+            const { cid } = await ipfs.add(cont);
+            console.log('IPFS cid:', cid);
+            return cid.toString();
         } catch (err) {
-            // console.log(err);
-            // res.status(500).send(err);
+            console.log(err);
         }
     }
 
-    async decode() {
-        const asyncitr = ipfs.cat('QmUgh3c927zLx9khXxAzWztpjGccEHog7UirPtzwFkTxn5');
+    async decode(hashed) {
+        const asyncitr = ipfs.cat(hashed);
         let data = '';
         // eslint-disable-next-line no-restricted-syntax
         for await (const itr of asyncitr) {
             data += Buffer.from(itr).toString();
-            // console.log(data);
         }
         return data;
     }

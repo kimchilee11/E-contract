@@ -10,8 +10,21 @@ class Controller {
 
     createOne = async (req, res) => {
         try {
-            await this.service.createOne(req.body);
-            return ValidHttpResponse.toNoContentResponse().toResponse(res);
+            const data = await this.service.createOne(req.body, req.cookies);
+            return ValidHttpResponse.toCreatedResponse(data).toResponse(res);
+        } catch (error) {
+            if (error instanceof HttpException) {
+                return new InValidHttpResponse(error.status, error.code, error.message)
+                    .toResponse(res);
+            }
+            return InValidHttpResponse.toInternalResponse(error.message).toResponse(res);
+        }
+    }
+
+    updateOne = async (req, res) => {
+        try {
+            const data = await this.service.updateOne(req.params, req.body);
+            return ValidHttpResponse.toCreatedResponse(data).toResponse(res);
         } catch (error) {
             if (error instanceof HttpException) {
                 return new InValidHttpResponse(error.status, error.code, error.message)

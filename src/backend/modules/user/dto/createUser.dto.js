@@ -1,5 +1,11 @@
-module.exports.CreateUserDto = body => ({
-    email: body.email,
-    fullName: body.name,
-    role: 1// 1: employee
+module.exports.CreateEmployeeDto = body => ({
+    employeeEmail: body.email,
+    employeeName: body.name,
+    employeeAvartar: body.picture,
+});
+
+module.exports.CreateCompanyDto = body => ({
+    companyEmail: body.email,
+    companyName: body.name,
+    companyAvartar: body.picture,
 });

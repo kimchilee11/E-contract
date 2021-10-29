@@ -1,43 +1,42 @@
 module.exports = class UserModel {
-    name;
+    employeeId;
 
-    phoneNumber;
+    employeeName;
 
-    address;
+    employeeEmail;
 
-    email;
+    employeePhone;
 
-    idCard;
+    employeeAddress;
 
-    bankAccount;
+    employeeBirthday;
 
-    issuedOn;
+    employeeIdNumber;
 
-    idNo;
+    createdAt;
 
     constructor({
-        name, phoneNumber, address, email, idCard, bankAccount, issuedOn, idNo
+        employeeName, employeeEmail, employeePhone, employeeAddress, employeeBirthday, employeeIdNumber, createdAt
     }) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.email = email;
-        this.idCard = idCard;
-        this.bankAccount = bankAccount;
-        this.issuedOn = issuedOn;
-        this.idNo = idNo;
+        this.employeeName = employeeName;
+        this.employeeEmail = employeeEmail;
+        this.employeePhone = employeePhone;
+        this.employeeAddress = employeeAddress;
+        this.employeeBirthday = employeeBirthday;
+        this.employeeIdNumber = employeeIdNumber;
+        this.createdAt = new Date();
     }
 
     toJSon() {
         return {
-            name: this.name,
-            phoneNumber: this.phoneNumber,
-            address: this.address,
-            email: this.email,
-            idCard: this.idCard,
-            bankAccount: this.bankAccount,
-            issuedOn: this.issuedOn,
-            idNo: this.idNo,
+            employeeId: this.employeeId,
+            employeeName: this.employeeName,
+            employeeEmail: this.employeeEmail,
+            employeePhone: this.employeePhone,
+            employeeAddress: this.employeeAddress,
+            employeeBirthday: this.employeeBirthday,
+            employeeIdNumber: this.employeeIdNumber,
+            createdAt: this.createdAt,
         };
     }
 };

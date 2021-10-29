@@ -1,14 +1,14 @@
-const { EMPLOYEES_COLLECTION } = require('../../common/constants/collection.constant');
+const { COMPANY_COLLECTION } = require('../../common/constants/collection.constant');
 const { RepositoryBase } = require('../../infrastructure/repository/repositoryBase');
 
-class EmployeeRepositoryImp extends RepositoryBase {
+class CompanyRepositoryImp extends RepositoryBase {
     constructor() {
-        super(EMPLOYEES_COLLECTION);
+        super(COMPANY_COLLECTION);
     }
 
     async findByEmail(email) {
         const response = await this.model
-            .where('employeeEmail', '==', email)
+            .where('companyEmail', '==', email)
             .limit(1)
             .get();
 
@@ -23,4 +23,4 @@ class EmployeeRepositoryImp extends RepositoryBase {
     }
 }
 
-module.exports.EmployeeRepository = new EmployeeRepositoryImp();
+module.exports.CompanyRepository = new CompanyRepositoryImp();
