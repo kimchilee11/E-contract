@@ -32,6 +32,7 @@ class AuthServiceImp {
             email: userInfo.email,
             accessToken,
             id: idCreated.id,
+            role: idCreated.role,
         };
     }
 }
